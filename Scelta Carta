@@ -1,0 +1,30 @@
+// fun filter_deck, dato un mazzo restituisce solo le carte Minion
+let rec filter_deck (deck : card list) = 
+    match deck with
+    [] -> []
+    |x::xs -> if x.typee = "MINION" && x.attack > 0 then x::(filter_deck xs)
+              else filter_deck(xs)
+
+//fun pesca_carta, pesca la prima carta del mazzo
+let pesca_carta (deck : card list) : card = deck.head()
+
+//empty card è una carta del mazzo che non ha valore
+let empty_card = {id="nulla"; name = "carta nulla" ; cost=0 ; typee="nulla"; attack=0 ; health=0}
+
+//fun pesca_carta_mana, pesca una carta del mazzo se il costo non è maggiore del mana
+let rec pesca_carta_mana (deck : card list) (mana : int) : card = 
+    match deck with
+    [] -> empty_card
+    |x::y::xs -> if card.cost > mana then pesca_carta_mana(y::xs) (mana)
+                 else x
+//scegli la carta con il rapporto tra attacco e salute 
+let choose_card (card : card) = card.attack/card.health
+
+//fun pesca_carta_migliore, dato un mazzo prende la carta migliore 
+let rec pesca_carta_migliore(deck : card list) : card =
+    match deck with
+    [] -> empty_card
+    |[x] -> x
+    |x::y::xs -> if choose_card x < choose_card y
+                 then pesca_carta_migliore(y::xs)
+                 else pesca_carta_migliore(x::xs)
